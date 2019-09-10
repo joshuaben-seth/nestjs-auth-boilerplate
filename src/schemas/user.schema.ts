@@ -41,12 +41,12 @@ UserSchema.pre('save', function(next) {
 
 });
 
-UserSchema.methods.checkPassword = function(attempt, callback) {
+UserSchema.methods.checkPassword = function(attempt: any, callback: any) {
 
     const user = this;
 
-    bcrypt.compare(attempt, user.password, (err, isMatch) => {
-        if (err) { return callback(err); }
+    bcrypt.compare(attempt, user.password, (error: any, isMatch: any) => {
+        if (error) { return callback(error); }
         callback(null, isMatch);
     });
 

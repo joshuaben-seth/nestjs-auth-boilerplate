@@ -18,13 +18,19 @@ export class AuthService {
 
             // Check the supplied password against the hash stored for this email address
             userToAttempt.checkPassword(loginAttempt.password, (err: any, isMatch: any) => {
-                if (err) { throw new UnauthorizedException(); }
+                if (err) { resolve({
+                    status: 401,
+                    message: 'Unauthorized User',
+                }); }
                 if (isMatch) {
                     // If there is a successful match, generate a JWT for the user
                     resolve(this.createJwtPayload(userToAttempt));
 
                 } else {
-                    throw new UnauthorizedException();
+                    resolve({
+                        status: 401,
+                        message: 'Unauthorized User',
+                    });
                 }
 
             });
